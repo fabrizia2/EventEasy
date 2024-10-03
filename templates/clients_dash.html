@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Dashboard</title>
+    <link rel="stylesheet" href="../statics/styles/clients_dashboard.css">
+    <link rel="stylesheet" hreff="../statics/styles/common.css">
+    <link rel="stylesheet" hreff="../statics/styles/services.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="navbar" id="sidebar">
+                <div class="logo">
+                    <img src="logo.png" alt="Logo">
+                    <h1>My Dashboard</h1>
+                </div>
+                <!--button class="hamburger" id="hamburger">&#9776;</button-->
+                <ul>
+                    <li><a href="#services" class="nav-item">
+                        <i class="fas fa-home"></i>
+                        <span>Services</span>
+                    </a></li>
+                    <li><a href="#cart" class="nav-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Cart</span>
+                    </a></li>
+                    <li><a href="#bookings" class="nav-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Bookings</span>
+                    </a></li>
+                    <li><a href="#profile" class="nav-item">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a></li>
+                    <li><a href="#help" class="nav-item">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help</span>
+                    </a></li>
+                    <li><a href="#" class="nav-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a></li>
+                </ul>
+            </div>
+        </nav>
+    
+        <div class="main-content" id="main">
+            <!-- Services Section -->
+            <section id="services" class="main">
+                <div class="main-top">
+                    <h1>Available Services</h1>
+                </div>
+                <div class="main-body" id="services-list">
+                    <!-- Services Data -->
+
+                    <div class="filter">
+                        <label for="category-select">Filter by category:</label>
+                        <select id="category-select">
+                            <option value="all">All Services</option>
+                            <option value="event-coverage">Event Coverage</option>
+                            <option value="catering">Catering</option>
+                        </select>
+                    </div>
+                    <div class="service-list" id="service-list">
+                        <div class="service service-card" data-category="event-coverage">
+                            
+                            <img src="../statics/images/ev1.jpg" alt="Photography">
+                            <h3>Photography</h3>
+                            
+                            <p>Capture your moments with professional photography services.</p>
+                            <p>Price: $500</p>
+                        </div>
+                        <div class="service service-card" data-category="event-coverage">
+                            <img src="../statics/images/ev2.jpg" alt="Videography">
+                            <h3>Videography</h3>
+                            <p>Relive your events with our expert videography services.</p>
+                            <p>Price: $500</p>
+                        </div>
+                        <div class="service service-card" data-category="catering">
+                            <img src="../statics/images/ev4.jpg" alt="Event Planning">
+                            <h3>Event Planning</h3>
+                            <p>Seamlessly plan your events with our top-notch planners.</p>
+                            <p>Price: $500</p>
+                        </div>
+                        <div class="service service-card" data-category="catering">
+                            <img src="../statics/images/ev5.jpg" alt="Catering">
+                            <h3>Catering</h3>
+                            <p>Delight your guests with our delicious catering services.</p>
+                            <p>Price: $500</p>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                
+            </section>
+        
+            <!-- Cart Section -->
+            <section id="cart" class="main">
+                <div class="main-top">
+                    <h1>Your Cart</h1>
+                </div>
+                <div class="main-body">
+                    <div id="cart-items">
+                        <div class="cart-item">
+                            <h4>Wedding Photography</h4>
+                            <span>$500</span>
+                            <span class="remove-item">Remove</span>
+                        </div>
+                        <div class="cart-item">
+                            <h4>Event Videography</h4>
+                            <span>$700</span>
+                            <span class="remove-item">Remove</span>
+                        </div>
+                    </div>
+                    <div id="cart-total">
+                        <h3>Total: $<span>1200</span></h3>
+                    </div>
+                    <button id="checkout-button">Checkout</button>
+                </div>
+            </section>
+        
+            <!-- Bookings Section -->
+            <section id="bookings" class="main">
+                <div class="main-top">
+                    <h1>Your Bookings</h1>
+                </div>
+                <div class="main-body" id="bookings-list">
+                    <div class="booking-card">
+                        <h3>Wedding Photography</h3>
+                        <p>Date: 12th Dec 2024</p>
+                        <p>Status: Confirmed</p>
+                    </div>
+                    <div class="booking-card">
+                        <h3>Event Videography</h3>
+                        <p>Date: 25th Dec 2024</p>
+                        <p>Status: Pending</p>
+                    </div>
+                </div>
+            </section>
+        
+            <!-- Profile Section -->
+            <section id="profile" class="main">
+                <div class="main-top">
+                    <h1>Your Profile</h1>
+                </div>
+                <div class="main-body">
+                    <form id="profile-form">
+                        <label for="profile-pic">Profile Picture:</label>
+                        <input type="file" id="profile-pic" accept="image/*">
+                        <img id="profile-pic-preview" src="#" alt="Profile Picture Preview" style="display: none;">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" placeholder="John Doe">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" placeholder="johndoe@example.com" disabled>
+                        <label for="location">Location:</label>
+                        <input type="text" id="location" placeholder="New York, USA">
+                        <button type="submit">Save Changes</button>
+                    </form>
+                </div>
+            </section>
+        
+            <!-- Help Section -->
+            <section id="help" class="main">
+                <div class="main-top">
+                    <h1>Help</h1>
+                </div>
+                <div class="main-body">
+                    <p>If you need assistance, please contact our support team at support@example.com or call 1-800-123-4567.</p>
+                </div>
+            </section>
+        
+            <!-- Modal for Service Details -->
+            <div id="service-details-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div class="modal-header">
+                        <h2>Service Details</h2>
+                    </div>
+                    <div class="modal-body">
+                        <h3 id="service-title">Service Title</h3>
+                        <p id="service-description">Service Description</p>
+                        <p id="service-price">Price: $<span>0</span></p>
+                        <div>
+                            <label for="event-type-modal">Event Type:</label>
+                            <select id="event-type-modal">
+                                <option>Wedding</option>
+                                <option>Conference</option>
+                                <option>Dowry</option>
+                                <option>Burial</option>
+                                <option>Graduation</option>
+                                <option>Babyshower</option>
+                                <option>Others</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="location-modal">Event's Location:</label>
+                            <input type="text" id="location-modal" placeholder="Enter location">
+                        </div>
+                        <div>
+                            <label for="time-modal">Event's Date & Time:</label>
+                            <input type="datetime-local" id="time-modal">
+                        </div>
+                        <div>
+                            <label for="photographers-modal">Number of Photographers:</label>
+                            <input type="number" id="photographers-modal" value="1" min="1">
+                        </div>
+                        <button id="book-service-button">Book Service</button>
+                        <button class="btn add-to-cart-button">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for Booking Form -->
+            <div id="booking-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div class="modal-header">
+                        <h2>Book Your Service</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form id="booking-form">
+                            <div>
+                                <label for="booking-event-type">Event Type:</label>
+                                <select id="booking-event-type" name="event-type">
+                                    <option>Wedding</option>
+                                    <option>Conference</option>
+                                    <option>Dowry</option>
+                                    <option>Burial</option>
+                                    <option>Graduation</option>
+                                    <option>Babyshower</option>
+                                    <option>Others</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="booking-location">Location:</label>
+                                <input type="text" id="booking-location" name="location" placeholder="Enter location">
+                            </div>
+                            <div>
+                                <label for="booking-time">Time:</label>
+                                <input type="datetime-local" id="booking-time" name="time">
+                            </div>
+                            <div>
+                                <label for="booking-photographers">Number of Photographers:</label>
+                                <input type="number" id="booking-photographers" name="photographers" value="1" min="1">
+                            </div>
+                            <button type="submit">Submit Booking</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../statics/scripts/clients_dashboard.js"></script>
+</body>
+</html>

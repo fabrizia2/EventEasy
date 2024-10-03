@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Dashboard</title>
+    <link rel="stylesheet" href="../statics/styles/dash.css">
+    <link rel="stylesheet" href="../statics/styles/common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="navbar">
+                <div class="logo">
+                    <img src="/pic/logo.jpg" alt="Logo">
+                    <h1>Client Dashboard</h1>
+                </div>
+                <ul>
+                    <li><a href="#" class="nav-link" data-target="dashboard" class="active">
+                        <i class="fas fa-user"></i>
+                        <span class="nav-item">Dashboard</span>
+                    </a></li>
+                    <li><a class="nav-link" href="#" data-target="services">
+                        <i class="fas fa-camera"></i>
+                        <span class="nav-item">Services</span>
+                    </a></li>
+                    <li><a class="nav-link" data-target="cart" href="#">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="nav-item">Cart</span>
+                    </a></li>
+                    <li><a class="nav-link"href="#" data-target="bookings">
+                        <i class="fas fa-calendar-check"></i>
+                        <span class="nav-item">Bookings</span>
+                    </a></li>
+                    <li><a class="nav-link" data-target="payment" href="#">
+                        <i class="fas fa-credit-card"></i>
+                        <span class="nav-item">Payment</span>
+                    </a></li>
+                    <li><a class="nav-link" data-target="settings" href="#">
+                        <i class="fas fa-cog"></i>
+                        <span class="nav-item">Settings</span>
+                    </a></li>
+                    <li><a class="nav-link" data-target="help" href="#">
+                        <i class="fas fa-question-circle"></i>
+                        <span class="nav-item">Help</span>
+                    </a></li>
+                    <li><a class="nav-link" href="#" class="logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="nav-item">Logout</span>
+                    </a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <section id="dashboard" class="main">
+            <div class="main-top">
+                <h1>Welcome to Your Dashboard</h1>
+                <p>Your personalized space to manage bookings, services, and more!</p>
+            </div>
+            <div class="main-body">
+                <h2>Upcoming Events</h2>
+                <p>No upcoming events. Please check back later.</p>
+            </div>
+        </section>
+        <section id="services" class="main">
+            <div class="main-body">
+                <h1>Available Services</h1>
+                
+                <div class="search_bar">
+                    <input type="search" placeholder="Search service here...">
+                    <select name="" id="">
+                        <option>Category</option>
+                        <option>Wedding</option>
+                        <option>Conference</option>
+                        <option>Dowry</option>
+                        <option>Burial</option>
+                        <option>Graduation</option>
+                        <option>Babyshower</option>
+                        <option>Others</option>
+                    </select>
+                    <select class="filter">
+                        <option>Filter</option>
+                    </select>
+                </div>
+
+                <div class="tags_bar">
+                    <div class="tag">
+                        <i class="fas fa-times"></i>
+                        <span>Photography</span>
+                    </div>
+                    <div class="tag">
+                        <i class="fas fa-times"></i>
+                        <span>Videography</span>
+                    </div>
+                    <div class="tag">
+                        <i class="fas fa-times"></i>
+                        <span>Catering</span>
+                    </div>
+                    <div class="tag">
+                        <i class="fas fa-times"></i>
+                        <span>Tents</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <p>There are more than <span>400</span> Services</p>
+                    <a href="#">See all</a>
+                </div>
+
+                <!-- Service Cards Start -->
+                <div class="job_card" data-id="1">
+                    <div class="job_details">
+                        <div class="img">
+                            <i class="fab fa-google-drive"></i>
+                        </div>
+                        <div class="text">
+                            <h2>Photographers</h2>
+                            <span>Wedding - Nairobi</span>
+                        </div>
+                    </div>
+                    <div class="job_salary">
+                        <h4>$6.7 - $12.5k</h4>
+                        <span>1 day ago</span>
+                    </div>
+                    <button class="btn details-button">View Details</button>
+                    <button class="btn add-to-cart-button">Add to Cart</button>
+                </div>
+
+                <div class="job_card" data-id="2">
+                    <div class="job_details">
+                        <div class="img">
+                            <i class="fab fa-google"></i>
+                        </div>
+                        <div class="text">
+                            <h2>Caterers</h2>
+                            <span>Wedding - Nairobi</span>
+                        </div>
+                    </div>
+                    <div class="job_salary">
+                        <h4>$8.7 - $13.2k</h4>
+                        <span>2 days ago</span>
+                    </div>
+                    <button class="btn details-button">View Details</button>
+                    <button class="btn add-to-cart-button">Add to Cart</button>
+                </div>
+
+                <div class="job_card" data-id="3">
+                    <div class="job_details">
+                        <div class="img">
+                            <i class="fab fa-facebook"></i>
+                        </div>
+                        <div class="text">
+                            <h2>Videographer</h2>
+                            <span>Babyshower - Kisumu</span>
+                        </div>
+                    </div>
+                    <div class="job_salary">
+                        <h4>$11 - $18.5k</h4>
+                        <span>2 days ago</span>
+                    </div>
+                    <button class="btn details-button">View Details</button>
+                    <button class="btn add-to-cart-button">Add to Cart</button>
+                </div>
+
+                <div class="job_card" data-id="4">
+                    <div class="job_details">
+                        <div class="img">
+                            <i class="fab fa-git-alt"></i>
+                        </div>
+                        <div class="text">
+                            <h2>Tents</h2>
+                            <span>Funeral - Kajiado</span>
+                        </div>
+                    </div>
+                    <div class="job_salary">
+                        <h4>$6 - $11.5k</h4>
+                        <span>3 days ago</span>
+                    </div>
+                    <button class="btn details-button">View Details</button>
+                    <button class="btn add-to-cart-button">Add to Cart</button>
+                </div>
+
+                <div class="job_card" data-id="5">
+                    <div class="job_details">
+                        <div class="img">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <div class="text">
+                            <h2>Photographer</h2>
+                            <span>Graduation - Nakuru</span>
+                        </div>
+                    </div>
+                    <div class="job_salary">
+                        <h4>$12.5 - $25.5k</h4>
+                        <span>4 days ago</span>
+                    </div>
+                    <button class="btn details-button">View Details</button>
+                    <button class="btn add-to-cart-button">Add to Cart</button>
+                </div>
+                <!-- Service Cards End -->
+
+                <!-- Service Details Modal -->
+                <div id="service-details-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <div class="modal-header">
+                            <h2>Service Details</h2>
+                        </div>
+                        <div class="modal-body">
+                            <h3 id="service-title">Service Title</h3>
+                            <p id="service-description">Service Description</p>
+                            <p id="service-price">Price: $<span>0</span></p>
+                            <div>
+                                <label for="event-type">Event Type:</label>
+                                <select id="event-type">
+                                    <option>Wedding</option>
+                                    <option>Conference</option>
+                                    <option>Dowry</option>
+                                    <option>Burial</option>
+                                    <option>Graduation</option>
+                                    <option>Babyshower</option>
+                                    <option>Others</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="location">Location:</label>
+                                <input type="text" id="location" placeholder="Enter location">
+                            </div>
+                            <div>
+                                <label for="time">Time:</label>
+                                <input type="datetime-local" id="time">
+                            </div>
+                            <div>
+                                <label for="photographers">Number of Photographers:</label>
+                                <input type="number" id="photographers" value="1" min="1">
+                            </div>
+                            <button id="book-service-button">Book Service</button>
+                            <button class="btn add-to-cart-button">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cart Modal -->
+                <div id="cart-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <div class="modal-header">
+                            <h2>Cart</h2>
+                        </div>
+                        <div class="modal-body">
+                            <div id="cart-items"></div>
+                            <div id="cart-total">
+                                <h3>Total: $<span>0</span></h3>
+                            </div>
+                            <button id="checkout-button">Checkout</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="cart" class="main">
+            <div class="main-top">
+                <h1>Your Cart</h1>
+            </div>
+            <div class="main-body">
+                <p>No items in your cart. Start adding services!</p>
+                <!-- List items in the cart -->
+            </div>
+        </section>
+
+        <section id="bookings" class="main">
+            <div class="main-top">
+                <h1>Your Bookings</h1>
+            </div>
+            <div class="main-body">
+                <p>You have no bookings yet.</p>
+                <!-- List booked services -->
+            </div>
+        </section>
+
+        <section id="payment" class="main">
+            <div class="main-top">
+                <h1>Payment Information</h1>
+            </div>
+            <div class="main-body">
+                <p>Your payment details are secured. Add your card for easier transactions.</p>
+                <!-- Payment form or information -->
+            </div>
+        </section>
+
+        <section id="settings" class="main">
+            <div class="main-top">
+                <h1>Account Settings</h1>
+            </div>
+            <div class="main-body">
+                <p>Update your personal information here.</p>
+                <!-- Form to update user info -->
+            </div>
+        </section>
+
+        <section id="help" class="main">
+            <div class="main-top">
+                <h1>Help & Support</h1>
+            </div>
+            <div class="main-body">
+                <p>If you need assistance, please contact our support team.</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const navbarLinks = document.querySelectorAll('nav ul li a');
+          
+          // Smooth scrolling
+          navbarLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+              e.preventDefault();
+              const targetId = this.getAttribute('href').substring(1);
+              const targetSection = document.getElementById(targetId);
+      
+              targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+      
+              // Highlight active link
+              navbarLinks.forEach(link => link.classList.remove('active'));
+              this.classList.add('active');
+            });
+          });
+      
+          // Logout functionality
+          const logoutLink = document.querySelector('.logout a');
+          logoutLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            // Clear session or perform any logout logic here
+            alert("You have been logged out.");
+            window.location.href = 'login.html'; // Redirect to login page
+          });
+        });
+      </script>
+      
+
+    <script src="../statics/scripts/dashboard.js"></script>
+</body>
+</html>

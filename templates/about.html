@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - EventEasy</title>
+    <link rel="stylesheet" href="../statics/styles/about.css">
+    <link rel="stylesheet" href="../statics/styles/common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="module" src="../statics/scripts/header.js"></script>
+    <script type="module" src="../statics/scripts/footer.js"></script>
+</head>
+<body>
+    <my-header></my-header>
+
+    <main>
+        <section id="about">
+            <h1>About Us</h1>
+            <div class="about-section">
+                <h2>Who We Are</h2>
+                <p>EventEasy is a dynamic online platform designed to simplify event planning by connecting you with the best service providers in the industry.</p>
+            </div>
+            <div class="about-section">
+                <h2>Our Mission</h2>
+                <p>To bridge the gap between clients and trusted professionals in the creative industry by offering a user-friendly platform that enhances convenience, promotes quality and guarantees satisfaction. We aim to empower service providers with greater visibility while ensuring clients receive the best value for their investment.</p>
+                <p>Founded with a passion for transforming events into unforgettable experiences, we make it easy for clients to find, compare, and book service providers based on their location, preferences, and budget.</p>
+            </div>
+            <div class="about-section">
+                <h2>Our Vision</h2>
+                <p>To become the leading platform for seamless and reliable bookings and transforming moments into lasting memories through exceptional service delivery.</p>
+            </div>
+            <div class="about-buttons">
+                <a href="../templates/login_signup.html" class="btn">Get Started</a>
+                <a href="../templates/services.html" class="btn">Explore Services</a>
+            </div>
+        </section>
+    </main>
+
+    <my-footer></my-footer>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.about-section');
+
+            function checkVisibility() {
+                const triggerBottom = window.innerHeight * 0.8;
+
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+
+                    if (sectionTop < triggerBottom) {
+                        section.classList.add('visible');
+                    } else {
+                        section.classList.remove('visible');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', checkVisibility);
+            checkVisibility(); // Initial check
+        });
+
+    </script>
+</body>
+</html>

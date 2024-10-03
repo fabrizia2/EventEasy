@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - EventEasy</title>
+    <link rel="stylesheet" href="../statics/styles/contact.css">
+    <link rel="stylesheet" href="../statics/styles/common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="module" src="../statics/scripts/header.js"></script>
+    <script type="module" src="../statics/scripts/footer.js"></script>
+</head>
+<body>
+    <my-header></my-header>
+
+    <main>
+        <section id="contact">
+            <h1>Contact Us</h1>
+            <div class="contact-container">
+                <div class="contact-form">
+                    <h2>Send Us a Message</h2>
+                    <form action="submit_contact_form.php" method="POST">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                        
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                        
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <h2>Our Contact Details</h2>
+                    <p>For any inquiries or support, you can reach us at:</p>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:support@eventeasykenya.com">support@eventeasykenya.com</a></li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+254 759 888 619">+254 759 888 619</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <my-footer></my-footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('.contact-form form');
+
+            // Add animations and effects when the page loads
+            const contactElements = document.querySelectorAll('.contact-form, .contact-info');
+            setTimeout(() => {
+                contactElements.forEach(element => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                });
+            }, 300);
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Mock submission; replace with actual AJAX submission later
+                alert("Your message has been sent! We'll get back to you shortly.");
+                form.reset();
+            });
+        });
+
+    </script>
+</body>
+</html>

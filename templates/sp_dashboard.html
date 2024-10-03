@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Provider Dashboard</title>
+    <link rel="stylesheet" href="../statics/styles/clients_dashboard.css">
+    <link rel="stylesheet" hreff="../statics/styles/common.css">
+    <link rel="stylesheet" hreff="../statics/styles/services.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="navbar" id="sidebar">
+                <div class="logo">
+                    <img src="logo.png" alt="Logo">
+                    <h1>My Dashboard</h1>
+                </div>
+                <!--button class="hamburger" id="hamburger">&#9776;</button-->
+                <ul id="nav-links">
+                    <li><a href="#gigs" class="nav-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Available Gigs</span>
+                    </a></li>
+                    <li><a href="#bookings" class="nav-item">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Applications</span>
+                    </a></li>
+                    <li><a href="#profile" class="nav-item">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a></li>
+                    <li><a href="#help" class="nav-item">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help</span>
+                    </a></li>
+                    <li><a href="#" class="nav-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a></li>
+                </ul>
+            </div>
+        </nav>
+    
+        <div class="main-content" id="main">
+            <!-- Available Gigs Section -->
+            <section id="gigs" class="main">
+                <div class="main-top">
+                    <h1>Available Gigs</h1>
+                </div>
+                <div class="main-body" id="gigs-list">
+                    <!-- Gigs Data -->
+                    <div class="filter">
+                        <label for="status-select">Filter by status:</label>
+                        <select id="status-select">
+                            <option value="all">All Gigs</option>
+                            <option value="open">Open</option>
+                            <option value="taken">Taken</option>
+                        </select>
+                    </div>
+                    <div class="gig-list" id="gig-list">
+                        <div class="gig gig-card" data-status="open">
+                            <h3>Wedding Photography</h3>
+                            <p>Client: Jane Doe</p>
+                            <p>Date: 12th Dec 2024</p>
+                            <p>Location: Nairobi, Kenya</p>
+                            <p>Status: Open</p>
+                            <button class="apply-button btn">Apply for Gig</button>
+                        </div>
+                        <div class="gig gig-card" data-status="taken">
+                            <h3>Event Videography</h3>
+                            <p>Client: John Smith</p>
+                            <p>Date: 25th Dec 2024</p>
+                            <p>Location: Mombasa, Kenya</p>
+                            <p>Status: Taken</p>
+                            <button class="apply-button btn" disabled>Apply for Gig</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <!-- Applications Section -->
+            <section id="applications" class="main">
+                <div class="main-top">
+                    <h1>Your Applications</h1>
+                </div>
+                <div class="main-body" id="applications-list">
+                    <div class="application-card">
+                        <h3>Wedding Photography</h3>
+                        <p>Date: 12th Dec 2024</p>
+                        <p>Status: Pending</p>
+                    </div>
+                    <div class="application-card">
+                        <h3>Event Videography</h3>
+                        <p>Date: 25th Dec 2024</p>
+                        <p>Status: Confirmed</p>
+                    </div>
+                </div>
+            </section>
+        
+            <!-- Bookings Section -->
+            <section id="bookings" class="main">
+                <div class="main-top">
+                    <h1>Your Bookings</h1>
+                </div>
+                <div class="main-body" id="bookings-list">
+                    <div class="booking-card">
+                        <h3>Wedding Photography</h3>
+                        <p>Date: 12th Dec 2024</p>
+                        <p>Status: Confirmed</p>
+                    </div>
+                    <div class="booking-card">
+                        <h3>Event Videography</h3>
+                        <p>Date: 25th Dec 2024</p>
+                        <p>Status: Pending</p>
+                    </div>
+                </div>
+            </section>
+        
+            <!-- Profile Section -->
+            <section id="profile" class="main">
+                <div class="main-top">
+                    <h1>Your Profile</h1>
+                </div>
+                <div class="main-body">
+                    <form id="profile-form">
+                        <label for="profile-pic">Profile Picture:</label>
+                        <input type="file" id="profile-pic" accept="image/*">
+                        <img id="profile-pic-preview" src="#" alt="Profile Picture Preview" style="display: none;">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" placeholder="John Doe">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" placeholder="johndoe@example.com" disabled>
+                        <label for="location">Location:</label>
+                        <input type="text" id="location" placeholder="New York, USA">
+                        <button type="submit">Save Changes</button>
+                    </form>
+                </div>
+            </section>
+        
+            <!-- Help Section -->
+            <section id="help" class="main">
+                <div class="main-top">
+                    <h1>Help</h1>
+                </div>
+                <div class="main-body">
+                    <p>If you need assistance, please contact our support team at support@example.com or call 1-800-123-4567.</p>
+                </div>
+            </section>
+        
+            <!-- Modal for Gig Details -->
+            <div id="gig-details-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div class="modal-header">
+                        <h2>Gig Details</h2>
+                    </div>
+                    <div class="modal-body">
+                        <h3 id="gig-title">Gig Title</h3>
+                        <p id="gig-client">Client: Jane Doe</p>
+                        <p id="gig-date">Date: 12th Dec 2024</p>
+                        <p id="gig-location">Location: Nairobi, Kenya</p>
+                        <p id="gig-status">Status: Open</p>
+                        <button id="apply-for-gig-button">Apply for Gig</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for Gig Application -->
+            <div id="gig-application-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div class="modal-header">
+                        <h2>Apply for Gig</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form id="gig-application-form">
+                            <h3 id="gig-title">Gig Title</h3>
+                            <p id="gig-description">Gig Description</p>
+                            <label for="application-message">Message:</label>
+                            <textarea id="application-message" rows="4" placeholder="Enter your message to the client"></textarea>
+                            <button type="submit" id="apply-for-gig-button">Apply</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal for Application Form -->
+            <div id="application-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div class="modal-header">
+                        <h2>Apply for Gig</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form id="application-form">
+                            <div>
+                                <label for="application-message">Why are you a good fit for this gig?</label>
+                                <textarea id="application-message" name="message" rows="4" placeholder="Explain why you are suitable for this gig..."></textarea>
+                            </div>
+                            <button type="submit">Submit Application</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../statics/scripts/clients_dashboard.js"></script>
+</body>
+</html>

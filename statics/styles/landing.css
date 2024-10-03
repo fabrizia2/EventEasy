@@ -1,0 +1,512 @@
+/* styles.css */
+
+/* Reset some default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Button styles */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background: #19433c;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #000000;
+    color: white;
+    transform: scale(1.1);
+}
+
+.btn.book-now {
+    background: #000000;
+    color: white;
+}
+
+.btn.book-now:hover {
+    background: #19433c;
+    color: #000000;
+}
+
+
+/* Hero section styles */
+#hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: slide 10s infinite;
+}
+
+.carousel-item {
+    flex: 1;
+    min-width: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 1s ease-in-out;
+}
+
+.hero-content {
+    position: absolute;
+    top: calc(50% + 30px); /* Push down by half the header height */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2; /* Ensure text is above the overlay */
+    color: white;
+}
+
+
+#hero h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 5em;
+    font-weight: bod; /* Add bold weight for visibility */
+    background: linear-gradient(5deg, #19433c, #fdfcfc, #19433c);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Adding a shadow for better contrast */
+}
+
+#hero p {
+    margin: 20px 0;
+}
+
+#hero .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background: #19433c;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background 0.3s, color 0.3s;
+}
+
+#hero .btn:hover {
+    background: #000000;
+    color: white;
+}
+
+#hero .btn.book-now {
+    background: #000000;
+    color: white;
+}
+
+#hero .btn.book-now:hover {
+    background: #19433c;
+    color: #000000;
+}
+
+/* Intro text section */
+.intro-text {
+    padding: 40px 20px; /* Increase padding for better spacing */
+    background: linear-gradient(135deg, rgba(25, 67, 60, 0.1), rgba(25, 67, 60, 0.2)); /* Gradient background */
+    text-align: center;
+    font-size: 1.5em;
+    color: #333; /* Default text color */
+    border-radius: 10px; /* Rounded corners */
+    margin: 20px auto; /* Center and space out section */
+    max-width: 800px; /* Limit the width for better readability */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add an overlay effect */
+.intro-text::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../images/green3.jpg'); /* Semi-transparent overlay image */
+    opacity: 0.1; /* Adjust opacity for desired effect */
+    z-index: 1;
+}
+
+/* Ensure text and other content are above the overlay */
+.intro-text * {
+    position: relative;
+    z-index: 2;
+}
+
+.intro-text p {
+    font-family: 'Open Sans', sans-serif; /* Secondary font for paragraph */
+    color: #0a0a0a; /* Text color */
+    line-height: 1.6;
+    animation: fadeInUp 1s ease-out; /* Animation */
+}
+
+.intro-text span {
+    color: #19433c; /* Highlight color */
+    font-weight: bolder;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Add some responsive design */
+@media (max-width: 768px) {
+    .intro-text {
+        font-size: 1.2em; /* Slightly smaller text on smaller screens */
+        padding: 30px 15px; /* Adjust padding for smaller screens */
+    }
+}
+
+
+
+/* Services section styles */
+.services {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 50px 20px;
+    background: #f4f4f4;
+    text-align: center;
+    position: relative;
+}
+
+.services h2 {
+    width: 100%;
+    margin-bottom: 40px;
+    font-size: 2em;
+    color: #19433c;
+    font-family: 'Pacifico', cursive;
+    animation: fadeInDown 1s ease-out;
+}
+
+.service {
+    flex: 1 1 calc(33.333% - 40px);
+    max-width: calc(33.333% - 40px);
+    margin: 20px;
+    text-align: center;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.service img {
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.service h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.5em;
+    margin: 20px 0 10px;
+    color: #19433c;
+}
+
+.service p {
+    padding: 0 20px 20px;
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+.service:hover {
+    transform: translateY(-10px) scale(1.05); /* Slight lift and enlarge on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.service:hover img {
+    filter: brightness(80%); /* Darken image slightly on hover */
+}
+
+.service:hover h3, .service:hover p {
+    color: #19433c; /* Change text color on hover */
+}
+
+/* View More button */
+.view-more {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.view-more-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background: #19433c;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.view-more-btn:hover {
+    transform: translateY(-5px);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .services {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .service {
+        margin: 10px 0;
+        max-width: 90%;
+    }
+
+    .view-more {
+        margin-top: 20px;
+    }
+
+    .view-more-btn {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}
+
+
+/* Testimonials section styles */
+#testimonials {
+    padding: 50px 20px;
+    background: rgb(25, 67, 60, 0.1);
+    text-align: center;
+}
+
+#testimonials h2 {
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    color: #19433c;
+    font-family: 'Roboto', sans-serif;
+}
+
+.testimonial-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.stats {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.stat-item {
+    text-align: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    margin: 10px;
+}
+
+.stat-item h3 {
+    font-size: 2.5em;
+    color: #19433c;
+}
+
+.stat-item p {
+    font-size: 1.2em;
+    color: #333;
+}
+
+.testimonial-card {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonials-carousel {
+    display: flex;
+    transition: transform 0.1s ease-in-out;
+    width: 100%;
+    height: 100%;
+    animation: slide 15s infinite;
+}
+
+.testimonials-carousel-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    position: absolut;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-33%); 
+}
+
+.carousel-item {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.2em;
+    color: #333;
+    flex: 1;
+    min-width: 100%;
+    background-position: center;
+    transition: opacity 1s ease-in-out;
+}
+
+.carousel-item p:last-child {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.carousel-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.carousel-controls button {
+    background: none;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    color: #19433c;
+    transition: color 0.3s ease;
+}
+
+.carousel-controls button:hover {
+    color: #333;
+}
+
+/* Add an overlay effect */
+.testimonial-content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 110%;
+    background: url('../images/ev6.jpg'); /* Semi-transparent overlay image */
+    opacity: 0.1; /* Adjust opacity for desired effect */
+    z-index: 1;
+}
+/* Ensure text and other content are above the overlay */
+.testimonials * {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    #hero h1 {
+        font-size: 2rem;
+    }
+    #hero {
+        height: 110vh;
+    }
+    .services {
+        flex-direction: column;
+    }
+
+    .service {
+        max-width: 100%;
+    }
+
+    .intro-text {
+        font-size: 1em;
+    }
+
+    .carousel-item {
+        font-size: 18px;
+    }
+}
+
+@keyframes slide {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(0); }
+    25% { transform: translateX(-100%); }
+    45% { transform: translateX(-100%); }
+    50% { transform: translateX(-200%); }
+    70% { transform: translateX(-200%); }
+    75% { transform: translateX(-300%); }
+    95% { transform: translateX(-300%); }
+    100% { transform: translateX(-400%); }
+}
