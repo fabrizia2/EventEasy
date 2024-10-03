@@ -1,17 +1,56 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Get elements
-    const bookNowButton = document.querySelector('.btn.book-now');
-    const addToCartButton = document.querySelector('.btn.add-to-cart');
+document.addEventListener('DOMContentLoaded', async function() {
+    const serviceImage = document.querySelector('.service-info img');
+    const serviceTitle = document.querySelector('.service-text h2');
+    const serviceDescription = document.querySelector('.service-text p');
+    const servicePrice = document.querySelector('.service-text strong');
+    const samplePhotos = document.querySelectorAll('#service-samples img');
 
-    // Book Now button event
-    bookNowButton.addEventListener('click', function() {
-        window.location.href = 'login_signup.html'; // Redirect to login/signup page
-    });
+    // Get the service ID from the URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const serviceId = urlParams.get('id');
 
-    // Add to Cart button event
-    addToCartButton.addEventListener('click', function() {
-        window.location.href = 'login_signup.html'; // Redirect to login/signup page
-    });
+    if (!serviceId) {
+        console.error('Service ID not found in the URL');
+        return;
+    }
+
+    try {
+        // Fetch service details from the backend
+        const response = await fetch(`https://ae3f-102-212-236-194.ngrok-free.app/services/${serviceId}`, {
+            method: "get",
+            headers: new Headers({
+              "ngrok-skip-browser-warning": "69420",
+            }),
+          });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const service = await response.json();
+
+        // Update the HTML with the fetched service details
+        serviceImage.src = service.image;
+        serviceImage.alt = service.title;
+        serviceTitle.textContent = service.title;
+        serviceDescription.textContent = service.description;
+        servicePrice.textContent = `Price: Ksh ${service.price}`;
+
+        // Update the sample photos
+        samplePhotos.forEach((img, index) => {
+            if (service.samples && service.samples[index]) {
+                img.src = service.samples[index];
+                img.alt = `Sample Photo ${index + 1}`;
+                img.classList.add('active');
+            } else {
+                img.style.display = 'none';
+            }
+        });
+
+    } catch (error) {
+        console.error('Error fetching service details:', error);
+        document.querySelector('main').innerHTML = '<p class="error">Failed to load service details. Please try again later.</p>';
+    }
 
     // Slider functionality
     const slider = document.querySelector('.slider');
