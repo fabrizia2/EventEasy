@@ -48,7 +48,6 @@ nav {
 }
 
 .main {
-  display: none; /* Keep the default as none */
   height: 100%; /* Make sections fill the height */
   position: absolute; /* Position them absolutely within the parent */
   top: 0; /* Align to the top */
@@ -117,8 +116,9 @@ li {
 }
 
 li a {
-  font-size: 16px;
-  color: rgb(85, 83, 83);
+  font-size: 20px;
+  color: #19433c;
+  text-transform: uppercase;
 }
 
 nav i {
@@ -131,6 +131,78 @@ nav i {
   position: absolute;
   bottom: 20px;
 }
+
+/* Media Queries */
+@media (max-width: 768px) {
+  nav {
+      width: 100%;
+      height: auto;
+      position: relative;
+  }
+
+  #sidebar {
+      width: 100%;
+      height: auto;
+  }
+
+  .navbar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  ul {
+      display: none; /* Hide the navigation items initially */
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+  }
+  h1 {
+      font-size: 1.2em;
+  }
+
+  .navbar.active ul {
+      display: flex; /* Show the navigation items when active */
+  }
+
+  .hamburger {
+      display: block;
+      cursor: pointer;
+      font-size: 2rem;
+      margin: 1rem 0;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+  }
+
+    .logo {
+      left: 1rem;
+  }
+  li {
+      width: 100%;
+      text-align: center;
+  }
+
+  li a {
+      display: block;
+      width: 100%;
+      padding: 1rem 0;
+  }
+
+  .logout {
+      position: relative;
+      margin-top: 1rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .hamburger {
+      display: none; /* Hide hamburger on large screens */
+  }
+}
+
 
 /* Modal Styles */
 .modal {
@@ -354,6 +426,192 @@ input, select {
 .service h3 {
   margin: 10px 0;
 }
+
+
+/* Event details section */
+.events-details {
+  margin-bottom: 20px;
+}
+
+.events-details label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.events-details input, .events-details select {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Service list section */
+h2 {
+  margin-bottom: 20px;
+}
+
+.servicess-list {
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  max-width: 1200px; /* Limit max width for larger screens */
+  margin: 0 auto; /* Center the list */
+}
+
+/* Individual service item */
+.servicess-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 15px; /* Added padding for better spacing */
+  background: #f9f9f9; /* Light background for items */
+  border: 1px solid #ddd; /* Subtle border */
+  border-radius: 8px; /* Rounded corners */
+  transition: box-shadow 0.3s ease; /* Smooth shadow transition */
+}
+
+.servicess-item:last-child {
+  border-bottom: none;
+}
+
+.servicess-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Shadow on hover */
+}
+
+.servicess-item label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.servicess-item input[type="checkbox"] {
+  margin-right: 10px;
+  width: 20px;
+}
+
+/* Price styling */
+.servicess-item .price {
+  margin-left: auto;
+  margin-right: 20px;
+  font-weight: bold;
+}
+
+/* Quantity controls */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-controls button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #19433c;
+  color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.quantity-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.quantity-controls button:hover:not(:disabled) {
+  background-color: #163a34; /* Slightly darker on hover */
+}
+
+.quantity-controls .count {
+  width: 30px;
+  text-align: center;
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .servicess-list {
+    padding: 10px; /* Reduce padding on smaller screens */
+  }
+
+  .servicess-item {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align items to start */
+  }
+
+  .servicess-item label {
+    justify-content: flex-start; /* Align label text to the left */
+  }
+
+  .quantity-controls {
+    margin-top: 10px; /* Add space above quantity controls */
+  }
+
+  .quantity-controls button {
+    width: 28px; /* Slightly smaller buttons */
+    height: 28px; /* Slightly smaller buttons */
+  }
+}
+
+@media (max-width: 480px) {
+  .servicess-item {
+    padding: 10px; /* Reduce padding further for mobile */
+  }
+
+  .quantity-controls .count {
+    width: 25px; /* Reduce width of count display */
+  }
+}
+
+
+/* Total section */
+.total-section {
+  margin: 20px 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Checkout button */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  border: none;
+  background-color: #19433c;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: white;
+  color: #19433c;
+  border: 1px solid #19433c;
+}
+.payment-page {
+  margin-top: 20px;
+}
+
+.payment-page h2 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+.payment-page label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#till-number-input {
+  margin-top: 10px;
+}
+
 
 /* Responsive styles */
 @media (max-width: 768px) {

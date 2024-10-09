@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to fetch services from the backend
     async function fetchServices() {
         try {
-            const response = await fetch('https://ae3f-102-212-236-194.ngrok-free.app/services/', { // Replace with your backend URL
+            const response = await fetch(`${config.API_URL}/services/`, { // Replace with your backend URL
                 method: "get",
                 headers: new Headers({
                   "ngrok-skip-browser-warning": "69420",
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         services.forEach(service => {
             const serviceElement = document.createElement('div');
             serviceElement.classList.add('service');
-            serviceElement.setAttribute('data-category', service.category);
+            serviceElement.setAttribute('data-category', service.categoryID);
             serviceElement.innerHTML = `
                 <a href="service1.html?id=${service.id}">
                     <img src="${service.image}" alt="${service.title}">
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Filter services based on the selected category
-    categorySelect.addEventListener('change', function() {
+    document.getElementById('categorySelect').addEventListener('change', function() {
         const selectedCategory = this.value;
         const services = document.querySelectorAll('.service');
         services.forEach(service => {

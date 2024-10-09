@@ -1,0 +1,32 @@
+<div class="payment-page">
+    <h2>Payment Options</h2>
+    
+    <div>
+        <label>
+            <input type="radio" name="payment-method" value="paybil" checked>
+            Paybil
+        </label>
+    </div>
+    
+    <div>
+        <label>
+            <input type="radio" name="payment-method" value="paypal">
+            PayPal
+        </label>
+    </div>
+    
+    <div>
+        <label>
+            <input type="radio" name="payment-method" value="till-number">
+            Till Number
+        </label>
+    </div>
+
+    <div id="till-number-input" style="display:none;">
+        <label for="till-number">Enter Till Number:</label>
+        <input type="text" id="till-number" placeholder="e.g. 123456">
+    </div>
+
+    <button id="confirm-payment">Confirm Payment</button>
+</div>
+

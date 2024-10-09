@@ -16,12 +16,12 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     try {
         // Fetch service details from the backend
-        const response = await fetch(`https://ae3f-102-212-236-194.ngrok-free.app/services/${serviceId}`, {
+        const response = await fetch(`${config.API_URL}/services/${serviceId}/`, {
             method: "get",
             headers: new Headers({
               "ngrok-skip-browser-warning": "69420",
             }),
-          });
+        });
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);

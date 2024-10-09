@@ -1,47 +1,61 @@
 document.getElementById('sign_up').addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent default form submission behavior
+  e.preventDefault(); // Prevent default form submission behavior
 
-    // Get form input values
-    var email = document.getElementById('email1').value;
-    var password = document.getElementById('password1').value;
-    var name = document.getElementById('name1').value;
-    var gender = document.getElementById('gender1').value;
-    var role = document.getElementById('role1').value;
-    // Create an object with the form data
-    var formData = new FormData();
-    formData.append("email", email);
-    formData.append("password", password);
-    formData.append("name", name);
-    formData.append("gender", gender);
-    formData.append("role", role);
+  // Get form input values
+  var email = document.getElementById('signup-email').value;
+  var password = document.getElementById('signup-password').value;
+  var re_password = document.getElementById('re-password').value;
+  var first_name = document.getElementById('first-name').value;
+  var last_name = document.getElementById('last-name').value;
+  //var role = document.getElementById('role').value;
 
-    // Make a POST request to the API endpoint
-    fetch('http://127.0.0.1:5000/signup', {
+  // Create an object with the form data
+  var formData = new FormData();
+  formData.append("email", email);
+  formData.append("password", password);
+  formData.append("re_password", re_password);
+  formData.append("first_name", first_name);
+  formData.append("last_name", last_name);
+  //formData.append("role", role);
+
+  // Make a POST request to the API endpoint
+  fetch(`${config.API_URL}/auth/users/`, {
       method: 'POST',
       body: formData
-    })
-    .then(function(response) {
+  })
+  .then(function(response) {
       if (response.ok) {
-        // Successful login, redirect to home page
-        window.location.href = "/";
+        window.location.href = '../../templates/clients_dash.html'; // Parse the JSON response
       } else {
-        // Failed login, display error message
-        alert('Sign Up failed. Please check your credentials.');
+          alert('Sign Up failed. Please check your details.');
+          throw new Error('Sign Up failed'); // Ensure the promise chain breaks here
       }
-    })
-    .catch(function(error) {
+  })
+  /*.then(function(data) {
+    console.log('Response data:', data);
+      // Successful sign up, check the user's role and redirect accordingly
+      if (data.role === 'client') {
+          window.location.href = '../../templates/clients_dash.html';
+      } else if (data.role === 'service-provider') {
+          window.location.href = '../../templates/sp-dashboard.html';
+      } else {
+          alert('Role not recognized.');
+      }
+  })*/
+  .catch(function(error) {
       console.error('Error:', error);
       alert('An error occurred during Sign Up.');
-    });
   });
+});
 
+  /*
   $(document).ready(function() {
     $('#signup-form').submit(function(event) {
         event.preventDefault();
 
-        const email = $('#email').val();
-        const password = $('#password').val();
-        const role = $('#role1').val();
+        const email = $('#signup-email').val();
+        const password = $('#signup-password').val();
+        const role = $('#role').val();
 
         // Example data for login
         const loginDetails = {
@@ -52,7 +66,7 @@ document.getElementById('sign_up').addEventListener('click', function(e) {
 
         // Send login details to backend (example URL)
         $.ajax({
-            url: 'https://example.com/api/login',
+            url: `${config.API_URL}/auth/users/`,
             method: 'POST',
             data: JSON.stringify(loginDetails),
             contentType: 'application/json',
@@ -60,9 +74,9 @@ document.getElementById('sign_up').addEventListener('click', function(e) {
                 if (response.success) {
                     // Check the user's role and redirect accordingly
                     if (response.role === 'client') {
-                        window.location.href = '../../templates/dashboard.html';
+                        window.location.href = '../../templates/clients_dash.html';
                     } else if (response.role === 'service-provider') {
-                        window.location.href = '../../templates/service-provider-dashboard.html';
+                        window.location.href = '../../templates/sp-dashboard.html';
                     }
                 } else {
                     alert('Login failed. Please check your credentials.');
@@ -73,4 +87,6 @@ document.getElementById('sign_up').addEventListener('click', function(e) {
             }
         });
     });
-});
+  });
+  
+});*/

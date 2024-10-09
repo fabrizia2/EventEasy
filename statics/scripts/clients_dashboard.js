@@ -1,3 +1,151 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const categorySelect = document.getElementsByClassName('categorySelect');
+    const serviceList = document.getElementById('service-list');
+
+    async function init() {
+        await fetchCategories();
+        await fetchServices();
+    }
+
+    init();
+
+    let categories = [];
+
+    async function fetchCategories() {
+        try {
+            const response = await fetch(`${config.API_URL}/categories/`, {
+                method: "GET",
+                headers: new Headers({
+                    "ngrok-skip-browser-warning": "69420",
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            categories = await response.json();
+            console.log('Categories fetched:', categories); // Log categories
+            populateCategorySelect(categories);
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+        }
+    }
+
+    function populateCategorySelect(categories) {
+        const allOption = document.createElement('option');
+        allOption.value = 'all';
+        allOption.textContent = 'All Categories';
+        categorySelect.appendChild(allOption);
+
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.id;
+            option.textContent = category.name;
+            categorySelect.appendChild(option);
+        });
+    }
+
+    async function fetchServices(categoryId = '') {
+        try {
+            let url = `${config.API_URL}/services/`;
+            if (categoryId) {
+                url += `?categoryId=${categoryId}`;
+            }
+
+            const response = await fetch(url, {
+                method: "GET",
+                headers: new Headers({
+                    "ngrok-skip-browser-warning": "69420",
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                const text = await response.text();
+                console.log('Response Text:', text); // Log non-JSON response
+                throw new TypeError('Expected JSON response');
+            }
+
+            const services = await response.json();
+            console.log('Services fetched:', services); // Log services
+            renderServices(services);
+        } catch (error) {
+            console.error('Error fetching services:', error);
+            serviceList.innerHTML = '<p class="error">Failed to load services. Please try again later.</p>';
+        }
+    }
+
+    function renderServices(services) {
+        serviceList.innerHTML = '';
+        services.forEach(service => {
+            const serviceElement = document.createElement('div');
+            serviceElement.classList.add('service');
+            serviceElement.setAttribute('data-category', service.categoryID);
+            serviceElement.innerHTML = `
+                <a href="#" class="service-link">
+                    <img src="${service.image}" alt="${service.title}">
+                    <h3>${service.name}</h3>
+                </a>
+                <p>${service.description}</p>
+                <p>Price: $${service.price}</p>
+            `;
+            serviceList.appendChild(serviceElement);
+        });
+
+        document.querySelectorAll('.service-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const serviceElement = this.closest('.service');
+                showModal(serviceElement);
+            });
+        });
+    }
+
+    categorySelect.addEventListener('change', function() {
+        const selectedCategory = this.value;
+        if (selectedCategory === 'all') {
+            fetchServices();
+        } else {
+            fetchServices(selectedCategory);
+        }
+    });
+});
+
+
+// Hamburger menu functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger');
+    const navbar = document.querySelector('.navbar');
+    const navItems = document.querySelectorAll('.nav-item');
+
+    if (hamburger && navbar) { // Ensure elements exist
+        hamburger.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+            if (navbar.classList.contains('active')) {
+                hamburger.innerHTML = '✕'; // X symbol
+            } else {
+                hamburger.innerHTML = '☰'; // Hamburger symbol
+            }
+        });
+    }
+
+    if (navItems.length > 0) { // Ensure nav items exist
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navbar.classList.remove('active');
+                hamburger.innerHTML = '☰'; // Hamburger symbol
+            });
+        });
+    }
+});
+
+
+
 $(document).ready(function() {
     // Hide all sections except for the first one (default)
     $('.main').hide();
@@ -37,36 +185,6 @@ $(document).ready(function() {
         $('#service-details-modal').fadeOut(); // Hide modal
     });
 
-    // Functionality for booking service
-    /*$('#book-service-button').on('click', function() {
-        alert("Service booked!"); // Booking action
-        $('#service-details-modal').fadeOut(); // Hide modal after booking
-    });*/
-
-    // Functionality for adding to cart
-    $('.add-to-cart-button').on('click', function() {
-        const title = $('#service-title').text();
-        const price = $('#service-price span').text();
-        $('#cart-items').append(`
-            <div class="cart-item">
-                <h4>${title}</h4>
-                <span>$${price}</span>
-                <span class="remove-item">Remove</span>
-            </div>
-        `);
-        updateCartTotal(); // Update cart total after adding item
-        $('#service-details-modal').fadeOut(); // Hide modal after adding to cart
-    });
-
-    // Function to update cart total
-    function updateCartTotal() {
-        let total = 0;
-        $('#cart-items .cart-item').each(function() {
-            const price = parseFloat($(this).find('span').eq(1).text().replace('$', ''));
-            total += price;
-        });
-        $('#cart-total span').text(total);
-    }
 
     // Prevent default form submission
     $('#profile-form').on('submit', function(e) {
@@ -197,6 +315,8 @@ $(document).ready(function () {
     });
 });
 
+hamburger?.classList.toggle('open');
+
 $(document).ready(function () {
     var hamburger = document.getElementById("hamburger");
     var navLinks = document.getElementById("nav-links");
@@ -205,3 +325,96 @@ $(document).ready(function () {
         navLinks.classList.toggle("active"); // Toggle active class on nav-links
     };
 });
+
+// Function to fetch categories from the backend
+async function fetchCategories() {
+    const categoriesUrl = `${config.API_URL}/categories/`;
+    try {
+        const response = await fetch(categoriesUrl, {
+            method: 'GET',
+            headers: new Headers({
+                'ngrok-skip-browser-warning': '69420',
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const categoriesData = await response.json();
+        return categoriesData;
+    } catch (error) {
+        console.error('Failed to fetch categories:', error);
+        return [];
+    }
+}
+
+// Function to populate category selects
+async function populateCategorySelects() {
+    const categories = await fetchCategories();
+    const categorySelects = document.querySelectorAll('.categorySelect');
+
+    categorySelects.forEach(categorySelect => {
+        // Clear existing options
+        categorySelect.innerHTML = '';
+
+        // Add new options fetched from the backend
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.id;
+            option.text = category.name;
+            categorySelect.appendChild(option);
+        });
+
+        // Add event listener to each category select
+        categorySelect.addEventListener('change', (event) => {
+            console.log('Category changed:', event.target.value);
+            // Add your filter functionality here
+        });
+    });
+}
+
+// Function to populate category selects
+async function populateCategorySelects() {
+    const categories = await fetchCategories();
+    const categorySelects = document.querySelectorAll('.categorySelect');
+
+    categorySelects.forEach(categorySelect => {
+        // Clear existing options
+        categorySelect.innerHTML = '';
+
+        // Add new options fetched from the backend
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.id;
+            option.text = category.name;
+            categorySelect.appendChild(option);
+        });
+
+        // Add event listener to each category select
+        categorySelect.addEventListener('change', (event) => {
+            console.log('Category changed:', event.target.value);
+            filterServicesByCategory(event.target.value);
+        });
+    });
+}
+
+// Function to filter services based on selected category
+function filterServicesByCategory(categoryId) {
+    const servicesList = document.getElementById('services-list');
+    const servicesItems = servicesList.querySelectorAll('.services-item');
+
+    servicesItems.forEach(serviceItem => {
+        if (categoryId === "" || serviceItem.dataset.categoryId === categoryId) {
+            serviceItem.style.display = 'block';
+        } else {
+            serviceItem.style.display = 'none';
+        }
+    });
+}
+
+// Initialize fetching and populating categories when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    populateCategorySelects();
+});
+

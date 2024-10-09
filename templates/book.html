@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Booking</title>
+    <link rel="stylesheet" href="../statics/styles/book.css"> <!-- Optional: Your CSS file -->
+</head>
+<body>
+    <div class="container">
+        <h1>Book Your Services</h1>
+
+        <div class="event-details">
+            <label for="location">Event Location:</label>
+            <input type="text" id="location" placeholder="Enter event location" required>
+
+            <label for="date">Event Date:</label>
+            <input type="date" id="date" required>
+        </div>
+
+        <h2>Select Services</h2>
+        <div id="service-list">
+            <!-- Services will be rendered here dynamically -->
+        </div>
+
+        <button id="checkout">Proceed to Checkout</button>
+    </div>
+
+    <script src="../statics/scripts/book.js"></script> <!-- Your JavaScript file -->
+</body>
+</html>
