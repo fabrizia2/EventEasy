@@ -35,7 +35,7 @@ function renderServices(services) {
         serviceElement.classList.add('servicess-item');
         serviceElement.innerHTML = `
             <label class="servicess-item">
-                <input type="checkbox" class="servicess-checkbox" data-id="${service.id}" data-price="${service.price}" data-category-id="${service.categoryId}">
+                <input type="checkbox" class="servicess-checkbox" data-id="${service.id}" data-price="${service.price}" data-category-id="${service.category.id}">
                 <span>${service.name}</span>
                 <span class="price"> - Ksh. ${service.price}</span>
                 <div class="quantity-controls">
