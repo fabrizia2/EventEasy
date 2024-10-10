@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const categorySelect = document.getElementById('category-select');
+    const categorySelect = document.getElementById('category-select'); // Ensure correct ID
     const serviceList = document.getElementById('service-list');
 
     // Function to fetch services from the backend
@@ -39,10 +39,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to render services on the page
     function renderServices(services) {
         serviceList.innerHTML = ''; // Clear the existing services
+        if (services.length === 0) {
+            serviceList.innerHTML = '<p>No services available.</p>';
+            return;
+        }
         services.forEach(service => {
             const serviceElement = document.createElement('div');
             serviceElement.classList.add('service');
-            serviceElement.setAttribute('data-category', service.categoryID);
+            serviceElement.setAttribute('data-category', service.categoryID); // Ensure categoryID is consistent
             serviceElement.innerHTML = `
                 <a href="service1.html?id=${service.id}">
                     <img src="${service.image}" alt="${service.title}">
@@ -55,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Filter services based on the selected category
-    document.getElementById('categorySelect').addEventListener('change', function() {
+    categorySelect.addEventListener('change', function() { // Ensure correct ID here as well
         const selectedCategory = this.value;
         const services = document.querySelectorAll('.service');
         services.forEach(service => {
@@ -70,4 +74,5 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fetch services when the page loads
     fetchServices();
 });
+
 

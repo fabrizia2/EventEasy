@@ -371,4 +371,3 @@ document.addEventListener('DOMContentLoaded', fetchBookings);
 
     // Call the function to fetch and populate event types
     fetchEventTypes();*/
-

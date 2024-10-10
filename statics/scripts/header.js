@@ -8,7 +8,7 @@ class MyHeader extends HTMLElement {
             </div>
             <nav>
                 <ul class="nav-links">
-                    <li><a href="landing.html">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="services.html">Services</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="contact.html">Contact Us</a></li>
@@ -21,63 +21,6 @@ class MyHeader extends HTMLElement {
             </nav>
         </header>
 
-        <!-- Modal for Log In/Sign Up -->
-        <div id="authModal" class="modal">
-            <div class="modal-content">
-                <span class="close-btn">&times;</span>
-                <div id="authOptions">
-                    <button id="loginModalBtn" class="btn">Log In</button>
-                    <button id="signupModalBtn" class="btn">Sign Up</button>
-                </div>
-                <div id="loginForm" class="form-container" style="display: none;">
-                    <h2>Log In</h2>
-                    <form id="loginFormContent">
-                        <label for="loginEmail">Email:</label>
-                        <input type="email" id="loginEmail" name="email" required>
-                        <label for="loginPassword">Password:</label>
-                        <input type="password" id="loginPassword" name="password" required>
-                        <button type="submit" class="btn">Log In</button>
-                        <p><a href="#" id="forgotPassword">Forgot Password?</a></p>
-                    </form>
-                </div>
-                <div id="signupForm" class="form-container" style="display: none;">
-                    <h2>Sign Up</h2>
-                    <form id="signupFormContent">
-                        <label for="signupName">Name:</label>
-                        <input type="text" id="signupName" name="name" required>
-                        <label for="signupEmail">Email:</label>
-                        <input type="email" id="signupEmail" name="email" required>
-                        <label for="signupPassword">Password:</label>
-                        <input type="password" id="signupPassword" name="password" required>
-                        <label for="signupConfirmPassword">Confirm Password:</label>
-                        <input type="password" id="signupConfirmPassword" name="confirmPassword" required>
-                        <label for="signupPhone">Phone Number:</label>
-                        <input type="tel" id="signupPhone" name="phone" required>
-                        <label for="gender">Gender:</label>
-                        <select id="gender1" name="gender" required>
-                            <option value="">Select Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                        <label for="userType">I am a:</label>
-                        <select id="userType" name="userType" required>
-                            <option value="client">Client</option>
-                            <option value="serviceProvider">Service Provider</option>
-                        </select>
-                        
-                        <button type="submit" class="btn">Sign Up</button>
-                    </form>
-                </div>
-                <div id="forgotPasswordForm" class="form-container" style="display: none;">
-                    <h2>Forgot Password</h2>
-                    <form id="forgotPasswordFormContent">
-                        <label for="forgotEmail">Email:</label>
-                        <input type="email" id="forgotEmail" name="email" required>
-                        <button type="submit" class="btn">Reset Password</button>
-                    </form>
-                </div>
-            </div>
-        </div>
         `;
 
         const styleElement = document.createElement('style');
