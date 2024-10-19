@@ -28,19 +28,21 @@
 .service {
     border: 1px solid #ccc;
     padding: 20px;
-    box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     transition: transform 0.3s, box-shadow 0.3s;
 }
+
 .service:hover {
     transform: translateY(-10px);
-    box-shadow: 2px 4px 20px rgba(0,0,0,0.2);
+    box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .service a {
     text-decoration: none;
     color: #19433c;
 }
+
 .service a:hover {
     color: #000000;
 }
@@ -49,6 +51,7 @@
     max-width: 100%;
     border-radius: 10px;
     height: 60%;
+    object-fit: cover; /* Ensure images cover their container while maintaining aspect ratio */
 }
 
 .service h3 {
@@ -56,7 +59,7 @@
 }
 
 /* Responsive styles */
-@media (max-width: 768px) {
+@media (max-width: 576px) {
     .service-list {
         grid-template-columns: 1fr;
     }
@@ -65,8 +68,20 @@
     }
 }
 
+@media (min-width: 577px) and (max-width: 768px) {
+    .service-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
 @media (min-width: 769px) and (max-width: 1024px) {
     .service-list {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1025px) {
+    .service-list {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
