@@ -24,13 +24,24 @@ document.getElementById('sign_up').addEventListener('click', function(e) {
       body: formData
   })
   .then(function(response) {
-      if (response.ok) {
-        window.location.href = '../../templates/clients_dash.html'; // Parse the JSON response
-      } else {
-          alert('Sign Up failed. Please check your details.');
-          throw new Error('Sign Up failed'); // Ensure the promise chain breaks here
-      }
-  })
+    if (response.ok) {
+        // Parse the JSON response
+        return response.json(); // Ensure you return the JSON data for the next then
+    } else {
+        alert('Sign Up failed. Please check your details.');
+        throw new Error('Sign Up failed'); // Ensure the promise chain breaks here
+    }
+})
+
+  .then(function(data) {
+    console.log('Response data:', data);
+
+    // Store user data in localStorage
+    localStorage.setItem('userData', JSON.stringify(data)); // Store the user data
+
+    // Redirect to the clients dashboard
+    window.location.href = '../../templates/clients_dash.html';
+})
   /*.then(function(data) {
     console.log('Response data:', data);
       // Successful sign up, check the user's role and redirect accordingly
@@ -47,46 +58,3 @@ document.getElementById('sign_up').addEventListener('click', function(e) {
       alert('An error occurred during Sign Up.');
   });
 });
-
-  /*
-  $(document).ready(function() {
-    $('#signup-form').submit(function(event) {
-        event.preventDefault();
-
-        const email = $('#signup-email').val();
-        const password = $('#signup-password').val();
-        const role = $('#role').val();
-
-        // Example data for login
-        const loginDetails = {
-            email: email,
-            password: password,
-            role: role
-        };
-
-        // Send login details to backend (example URL)
-        $.ajax({
-            url: `${config.API_URL}/auth/users/`,
-            method: 'POST',
-            data: JSON.stringify(loginDetails),
-            contentType: 'application/json',
-            success: function(response) {
-                if (response.success) {
-                    // Check the user's role and redirect accordingly
-                    if (response.role === 'client') {
-                        window.location.href = '../../templates/clients_dash.html';
-                    } else if (response.role === 'service-provider') {
-                        window.location.href = '../../templates/sp-dashboard.html';
-                    }
-                } else {
-                    alert('Login failed. Please check your credentials.');
-                }
-            },
-            error: function() {
-                alert('Login failed. Please try again.');
-            }
-        });
-    });
-  });
-  
-});*/

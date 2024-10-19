@@ -56,6 +56,58 @@ main {
     flex: 1;
 }
 
+/* CSS to create an oval shape for the profile image */
+.profile-pic {
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Adjust size as needed */
+    border-radius: 50%; /* Makes the image oval */
+    object-fit: cover; /* Ensures the image covers the entire oval shape */
+    display: block; /* Ensures it's displayed properly */
+    margin: 0 auto; /* Center the image */
+}
+
+/* Additional styles for the profile display section */
+#profile-display {
+    text-align: center; /* Center align the content */
+}
+
+
+.service-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.service {
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.service:hover {
+    transform: translateY(-10px);
+    box-shadow: 2px 4px 20px rgba(0,0,0,0.2);
+}
+
+.service a {
+    text-decoration: none;
+    color: #19433c;
+}
+.service a:hover {
+    color: #000000;
+}
+
+.service img {
+    max-width: 100%;
+    border-radius: 10px;
+    height: 60%;
+}
+
+.service h3 {
+    margin: 10px 0;
+}
+
 /* Footer styles */
 footer {
     background: #19433c;

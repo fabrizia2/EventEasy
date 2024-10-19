@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const response = await fetch(`${config.API_URL}/services/`, { // Replace with your backend URL
                 method: "get",
                 headers: new Headers({
-                  "ngrok-skip-browser-warning": "69420",
+                    'Content-Type': 'application/json',
                 }),
               });
 

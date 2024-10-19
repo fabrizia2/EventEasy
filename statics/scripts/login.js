@@ -58,6 +58,16 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('lastName', user.last_name); // Save the last name to localStorage
             localStorage.setItem('email', user.email); // Save the email to localStorage
 
+            // Combine user details into a single object for easier retrieval
+            const userDetails = {
+                name: `${user.first_name} ${user.last_name}`,
+                email: user.email,
+                location: user.location || '',
+                profilePic: user.profilePic || ''
+            };
+
+            localStorage.setItem('userDetails', JSON.stringify(userDetails)); // Save all user details as an object
+
             // Display user's name under "My Dashboard"
             const userNameElement = document.getElementById('user-name');
             if (userNameElement) {

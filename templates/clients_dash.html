@@ -15,10 +15,10 @@
         <nav>
             <div class="navbar" id="sidebar">
                 <div class="logo">
-                    <img src="logo.png" alt="Logo">
-                    <h1>My Dashboard</h1>
-                    <span id="user-name" style="display: none;"></span> <!-- Placeholder for user name -->
-                    <div id="result"></div>
+                    <div id="profile-info">
+                        <img id="profile-img" src="#" alt="Profile Image" style="display: none;">
+                        <span id="user-name" style="display: none;"></span>
+                    </div>
                 </div>
                 <button class="hamburger" id="hamburger">&#9776;</button>
                 <ul>
@@ -42,7 +42,7 @@
                         <i class="fas fa-question-circle"></i>
                         <span>Help</span>
                     </a></li>
-                    <li><a href="#" class="nav-item logout">
+                    <li><a href="javascript:void(0)" class="nav-item logout">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span>
                     </a></li>
@@ -66,33 +66,7 @@
                         </select>
                     </div>
                     <div class="service-list" id="service-list">
-                        <!--div class="service service-card" data-category="event-coverage">
-                            
-                            <img src="../statics/images/ev1.jpg" alt="Photography">
-                            <h3>Photography</h3>
-                            
-                            <p>Capture your moments with professional photography services.</p>
-                            <p>Price: $500</p>
-                        </div>
-                        <div class="service service-card" data-category="event-coverage">
-                            <img src="../statics/images/ev2.jpg" alt="Videography">
-                            <h3>Videography</h3>
-                            <p>Relive your events with our expert videography services.</p>
-                            <p>Price: $500</p>
-                        </div>
-                        <div class="service service-card" data-category="catering">
-                            <img src="../statics/images/ev4.jpg" alt="Event Planning">
-                            <h3>Event Planning</h3>
-                            <p>Seamlessly plan your events with our top-notch planners.</p>
-                            <p>Price: $500</p>
-                        </div>
-                        <div class="service service-card" data-category="catering">
-                            <img src="../statics/images/ev5.jpg" alt="Catering">
-                            <h3>Catering</h3>
-                            <p>Delight your guests with our delicious catering services.</p>
-                            <p>Price: $500</p>
-                        </div-->
-                        
+                        <!-- Services will be rendered here dynamically -->
                     </div>
                 </div>
 
@@ -141,6 +115,16 @@
                     
                     <button class="btn" id="checkout">Proceed to Checkout</button>
                 </div>
+
+                <!-- Logout Confirmation Modal -->
+                <div id="logout-modal" class="modall">
+                    <div class="modal-content">
+                        <span class="close-button">&times;</span>
+                        <p>Are you sure you want to logout?</p>
+                        <button id="confirm-logout">Yes</button>
+                        <button id="cancel-logout">No</button>
+                    </div>
+                </div>
                 
                 <!-- Payment Modal -->
                 <div id="payment-modal" class="modal">
@@ -177,16 +161,7 @@
                     <h1>Your Bookings</h1>
                 </div>
                 <div class="main-body" id="bookings-list">
-                    <!--div class="booking-card">
-                        <h3>Wedding Photography</h3>
-                        <p>Date: 12th Dec 2024</p>
-                        <p>Status: Confirmed</p>
-                    </div>
-                    <div class="booking-card">
-                        <h3>Event Videography</h3>
-                        <p>Date: 25th Dec 2024</p>
-                        <p>Status: Pending</p>
-                    </div-->
+                    <!-- Bookings Data -->
                 </div>
             </section>
         
@@ -196,20 +171,35 @@
                     <h1>Your Profile</h1>
                 </div>
                 <div class="main-body">
-                    <form id="profile-form">
+                    <!-- Profile Display Section -->
+                    <div id="profile-display">
+                        <img class="profile-pic" id="display-profile-pic" src="#" alt="Profile Picture" style="display: none;">
+                        <p><strong>Name:</strong> <span id="display-name"></span></p>
+                        <p><strong>Email:</strong> <span id="display-email"></span></p>
+                        <p><strong>Location:</strong> <span id="display-location"></span></p>
+                        <p><strong>Contact:</strong> <span id="display-contact"></span></p>
+                        <button id="edit-profile-btn">Edit Profile</button>
+                    </div>
+
+                    <!-- Profile Edit Form -->
+                    <form id="profile-form" style="display: none;">
                         <label for="profile-pic">Profile Picture:</label>
                         <input type="file" id="profile-pic" accept="image/*">
                         <img id="profile-pic-preview" src="#" alt="Profile Picture Preview" style="display: none;">
                         <label for="name">Name:</label>
-                        <input type="text" id="name" placeholder="John Doe" value="" required>
+                        <input type="text" id="name" placeholder="John Doe" required>
                         <label for="email">Email:</label>
                         <input type="email" id="email" placeholder="johndoe@example.com" required>
                         <label for="location">Location:</label>
                         <input type="text" id="location" placeholder="New York, USA" required>
+                        <label for="contact">Contact:</label>
+                        <input type="tel" id="contact" placeholder="+254712345678" required>
                         <button type="submit">Save Changes</button>
+                        <button type="button" id="cancel-edit-btn">Cancel</button>
                     </form>
                 </div>
             </section>
+
         
             <!-- Help Section -->
             <section id="help" class="main">
@@ -304,8 +294,10 @@
     </div>
 
     <script src="../statics/scripts/clients_dashboard.js"></script>
+    <script src="../statics/scripts/profile.js"></script>
     <script src="../statics/scripts/config.js"></script>
     <script src="../statics/scripts/book.js"></script>
     <script src="../statics/scripts/login.js"></script>
+    <script src="jquery-3.6.0.min.js"></script>
 </body>
 </html>
