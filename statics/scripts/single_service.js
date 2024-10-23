@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const serviceTitle = document.querySelector('.service-text h2');
     const serviceDescription = document.querySelector('.service-text p');
     const servicePrice = document.querySelector('.service-text strong');
-    const samplePhotos = document.querySelectorAll('#service-samples img');
+    const samplePhotos = document.querySelectorAll('#service-samples .slider img'); // Ensure you select the right images
 
     // Get the service ID from the URL query parameter
     const urlParams = new URLSearchParams(window.location.search);
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         const response = await fetch(`${config.API_URL}/services/${serviceId}/`, {
             method: "get",
             headers: new Headers({
-              "ngrok-skip-browser-warning": "69420",
+                "ngrok-skip-browser-warning": "69420",
             }),
         });
 
@@ -37,15 +37,20 @@ document.addEventListener('DOMContentLoaded', async function() {
         servicePrice.textContent = `Price: Ksh ${service.price}`;
 
         // Update the sample photos
-        samplePhotos.forEach((img, index) => {
-            if (service.samples && service.samples[index]) {
-                img.src = service.samples[index];
-                img.alt = `Sample Photo ${index + 1}`;
-                img.classList.add('active');
-            } else {
-                img.style.display = 'none';
-            }
-        });
+        if (service.samples && service.samples.length > 0) {
+            samplePhotos.forEach((img, index) => {
+                if (service.samples[index]) {
+                    img.src = service.samples[index];
+                    img.alt = `Sample Photo ${index + 1}`;
+                    img.style.display = 'block'; // Show the image
+                } else {
+                    img.style.display = 'none'; // Hide if no sample available
+                }
+            });
+        } else {
+            console.warn('No sample photos available for this service.');
+            samplePhotos.forEach(img => img.style.display = 'none'); // Hide all if no samples
+        }
 
     } catch (error) {
         console.error('Error fetching service details:', error);

@@ -20,7 +20,6 @@ class MyHeader extends HTMLElement {
                 </div>
             </nav>
         </header>
-
         `;
 
         const styleElement = document.createElement('style');
@@ -30,24 +29,23 @@ class MyHeader extends HTMLElement {
                 justify-content: space-between;
                 align-items: center;
                 padding: 10px 20px;
-                background: #19433c; /* Original background color */
-                color: #D7D7D7; /* Original text color */
+                background: #19433c;
+                color: #D7D7D7;
                 position: fixed;
                 top: 0;
                 width: 100%;
                 z-index: 1000;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+                transition: background-color 0.3s, color 0.3s;
             }
 
-            /* Scrolled header styles */
             .scrolled {
-                background-color: rgba(255, 255, 255, 0.5); /* Slightly opaque background when scrolled */
-                color: black; /* Change text color to ensure visibility */
+                background-color: rgba(255, 255, 255, 0.5);
+                color: black;
             }
 
             .scrolled .nav-links a {
-                color: #19433c !important; /* Use !important if necessary */
+                color: #19433c !important;
             }
 
             .scrolled .btn.login {
@@ -60,7 +58,6 @@ class MyHeader extends HTMLElement {
                 color: white !important;
             }
 
-            /* Ensure logo image is not affected by color changes */
             .scrolled .logo img {
                 filter: none !important;
             }
@@ -85,7 +82,7 @@ class MyHeader extends HTMLElement {
                 text-decoration: none;
                 color: #D7D7D7;
             }
-            
+
             header nav ul li a.btn.login {
                 display: inline-block;
                 padding: 10px 20px;
@@ -131,144 +128,40 @@ class MyHeader extends HTMLElement {
                     display: block;
                 }
             }
-
-            /* Modal styles */
-            .modal {
-                display: none;
-                position: fixed;
-                z-index: 1;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                overflow: auto;
-                background-color: rgb(0,0,0);
-                background-color: rgba(0,0,0,0.4);
-                padding-top: 60px;
-            }
-
-            .modal-content {
-                background-color: #fefefe;
-                margin: 5% auto;
-                padding: 20px;
-                border: 1px solid #888;
-                width: 80%;
-                max-width: 600px;
-                border-radius: 10px;
-                position: relative;
-            }
-
-            .close-btn {
-                color: #aaa;
-                float: right;
-                font-size: 28px;
-                font-weight: bold;
-            }
-
-            .close-btn:hover,
-            .close-btn:focus {
-                color: black;
-                text-decoration: none;
-                cursor: pointer;
-            }
-
-            .form-container {
-                margin-top: 20px;
-            }
-
-            .form-container label {
-                display: block;
-                margin: 10px 0 5px;
-            }
-
-            .form-container input,
-            .form-container select {
-                width: 90%;
-                padding: 10px;
-                margin-bottom: 10px;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-            }
-
-            .form-container button {
-                display: inline-block;
-                padding: 10px 20px;
-                background: #19433c;
-                color: white;
-                text-decoration: none;
-                border-radius: 5px;
-                border: none;
-                cursor: pointer;
-            }
-
-            .form-container button:hover {
-                background: #000;
-            }
         `;
         document.head.appendChild(styleElement);
 
         const scriptElement = document.createElement('script');
         scriptElement.textContent = `
             document.addEventListener('DOMContentLoaded', function() {
-                // Mobile menu toggle
                 document.getElementById('menu-toggle').addEventListener('click', function() {
                     var nav = document.querySelector('nav ul');
                     nav.classList.toggle('show');
                     this.querySelector('i').classList.toggle('fa-bars');
                     this.querySelector('i').classList.toggle('fa-times');
                 });
-                
-                // Modal functionality
-                const authModal = document.getElementById('authModal');
-                const closeBtn = document.querySelector('.close-btn');
-                const loginModalBtn = document.getElementById('loginModalBtn');
-                const signupModalBtn = document.getElementById('signupModalBtn');
-                const forgotPasswordLink = document.getElementById('forgotPassword');
-
-                loginModalBtn.onclick = function() {
-                    authModal.style.display = 'block';
-                    // Show the login form
-                };
-
-                signupModalBtn.onclick = function() {
-                    authModal.style.display = 'block';
-                    // Show the signup form
-                };
-
-                forgotPasswordLink.onclick = function() {
-                    authModal.style.display = 'block';
-                    // Show the forgot password form
-                };
-
-                closeBtn.onclick = function() {
-                    authModal.style.display = 'none';
-                };
-
-                window.onclick = function(event) {
-                    if (event.target === authModal) {
-                        authModal.style.display = 'none';
-                    }
-                };
 
                 // Header transparency on scroll
-                const header = document.querySelector('header'); // Correct header selector
-                const logo = document.querySelector('.logo img'); // Correct logo selector
+                const header = document.querySelector('header');
+                const logo = document.querySelector('.logo img');
                 const originalLogoSrc = '../statics/images/EVENTEASY_Logo_Design_2-removebg.png';
                 const scrolledLogoSrc = '../statics/images/EVENTEASY Logo Design.png';
+
                 window.addEventListener('scroll', function() {
+                    console.log('Scroll event detected:', window.scrollY); // Debug log
                     if (window.scrollY > 0) {
                         header.classList.add('scrolled');
                         logo.src = scrolledLogoSrc;
+                        console.log('Header scrolled class added'); // Debug log
                     } else {
                         header.classList.remove('scrolled');
                         logo.src = originalLogoSrc;
+                        console.log('Header scrolled class removed'); // Debug log
                     }
                 });
-
             });
         `;
         document.body.appendChild(scriptElement);
-
     }
 }
 
