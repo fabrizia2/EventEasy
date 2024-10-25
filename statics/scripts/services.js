@@ -60,15 +60,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Function to fetch services from the backend
-    async function fetchServices() {
+     // Function to fetch services from the backend
+     async function fetchServices() {
         try {
-            const response = await fetch(`${config.API_URL}/services/`, {
-                method: "GET",
+            const response = await fetch(`${config.API_URL}/services/`, { // Replace with your backend URL
+                method: "get",
                 headers: new Headers({
                     'Content-Type': 'application/json',
                 }),
-            });
+              });
 
             // Log the headers for debugging
             console.log('Response Headers:', response.headers);
@@ -79,8 +79,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const contentType = response.headers.get('content-type');
             if (!contentType || !contentType.includes('application/json')) {
+                // Log the raw response text for debugging
                 const text = await response.text();
                 console.log('Response Text:', text);
+
                 throw new TypeError('Expected JSON response');
             }
 
@@ -105,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
             serviceElement.setAttribute('data-category', service.categoryID); // Ensure categoryID is consistent
             serviceElement.innerHTML = `
                 <a href="service1.html?id=${service.id}">
-                    <img src="${service.image}" alt="${service.title}">
+                    <img src="${service.image}" alt="${service.title}" />
                     <h3>${service.name}</h3>
                 </a>
                 <p>${service.description}</p>
