@@ -26,11 +26,11 @@
 }
 
 .service {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border: 1px solid #ccc;
-    
-    min-height: max-content;
     padding: 20px;
-    margin-bottom: auto;
     box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     transition: transform 0.3s, box-shadow 0.3s;
@@ -51,11 +51,12 @@
 }
 
 .service img {
-    max-width: 100%;
+    width: 100%;            /* Ensures image fills the width of its container */
+    height: 250px;          /* Set a fixed height for uniformity */
     border-radius: 10px;
-    height: 60%;
-    object-fit: cover; /* Ensure images cover their container while maintaining aspect ratio */
+    object-fit: cover;      /* Crops the image to fill the container without stretching */
 }
+
 
 .service h3 {
     margin: 10px 0;

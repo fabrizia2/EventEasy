@@ -848,6 +848,62 @@ h2 {
   opacity: 0.6;
 }
 
+/* General styling for the Help section */
+#help .main-top h1 {
+  font-size: 2em;
+  margin-bottom: 15px;
+  color: #f1f5f4;
+}
+
+#help .main-body p {
+  font-size: 1.1em;
+  margin: 8px 0;
+  color: #333;
+}
+
+/* Link styling */
+#help .main-body a {
+  color: #19433c;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#help .main-body a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #help.main {
+      padding: 15px;
+      margin: 10px;
+      max-width: 100%;
+  }
+
+  #help .main-top h1 {
+      font-size: 1.8em;
+  }
+
+  #help .main-body p {
+      font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  #help.main {
+      padding: 10px;
+  }
+
+  #help .main-top h1 {
+      font-size: 1.6em;
+  }
+
+  #help .main-body p {
+      font-size: 0.9em;
+  }
+}
+
+
 @media (max-width: 768px) {
   .gig-card {
       width: 100%; /* Full-width for mobile view */

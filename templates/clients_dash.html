@@ -92,6 +92,12 @@
                             <option value="Babyshower">Babyshower</option>
                             <option value="Others">Others</option>
                         </select>
+
+                        <!-- Div to display the input field when "Others" is selected -->
+                        <div id="other-event-container" style="display: none;">
+                            <label for="other-event">Please specify:</label>
+                            <input type="text" id="other-event" name="other-event" placeholder="Type your event type here">
+                        </div>
                         
                         <label for="location">Event Location:</label>
                         <input type="text" id="location" placeholder="Enter event location" required>
@@ -208,8 +214,6 @@
                 </div>
                 <div class="main-body">
                     <p>If you need assistance, please contact our support team:</p>
-                    <p>Customer Support</p>
-                    <p>Contact us:</p>
                     <p>Tel: 0759 888 619</p>
                     <p>Email: <a href="mailto:support@eventeasykenya.com">support@eventeasykenya.com</a></p>
                 </div>
@@ -297,6 +301,20 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const eventTypeSelect = document.getElementById("event-type");
+        const otherEventContainer = document.getElementById("other-event-container");
+    
+        // Listen for changes on the select element
+        eventTypeSelect.addEventListener("change", function() {
+            if (eventTypeSelect.value === "Others") {
+                otherEventContainer.style.display = "block";
+            } else {
+                otherEventContainer.style.display = "none";
+            }
+        });
+    </script>
 
     <script src="../statics/scripts/clients_dashboard.js"></script>
     <script src="../statics/scripts/profile.js"></script>

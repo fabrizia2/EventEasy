@@ -1,18 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const categorySelect = document.getElementById('category-select'); // Ensure correct ID
-    const serviceList = document.getElementById('services-container'); // Ensure correct ID
-
-    if (!categorySelect) {
-        console.error('Category select element not found');
-    }
-    if (!serviceList) {
-        console.error('Service list container not found');
-    }
+    const serviceList = document.getElementById('service-list');
 
     // Function to fetch categories from the backend
     async function fetchCategories() {
         try {
-            const response = await fetch(`${config.API_URL}/categories/`, {
+            const response = await fetch(`${config.API_URL}/categories/`, { // Replace with your backend URL
                 method: "GET",
                 headers: new Headers({
                     'Content-Type': 'application/json',
@@ -47,21 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Function to filter services based on the selected category
-    function filterServices() {
-        const selectedCategory = categorySelect.value;
-        const services = document.querySelectorAll('.service');
-        services.forEach(service => {
-            if (selectedCategory === 'all' || service.getAttribute('data-category') === selectedCategory) {
-                service.style.display = 'block';
-            } else {
-                service.style.display = 'none';
-            }
-        });
-    }
-
-     // Function to fetch services from the backend
-     async function fetchServices() {
+    // Function to fetch services from the backend
+    async function fetchServices() {
         try {
             const response = await fetch(`${config.API_URL}/services/`, { // Replace with your backend URL
                 method: "get",
@@ -114,15 +94,26 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             serviceList.appendChild(serviceElement);
         });
+    }
 
-        // Apply the filter after rendering the services
-        filterServices();
+    // Function to filter services based on the selected category
+    function filterServices(services) {
+        const selectedCategory = categorySelect.value;
+        const serviceElements = document.querySelectorAll('.service');
+        serviceElements.forEach(service => {
+            if (selectedCategory === 'all' || service.getAttribute('data-category') === selectedCategory) {
+                service.style.display = 'block';
+            } else {
+                service.style.display = 'none';
+            }
+        });
     }
 
     // Fetch categories and services when the page loads
-    fetchCategories();
-    fetchServices();
-
-    // Add event listener to category select after services are fetched
-    categorySelect.addEventListener('change', filterServices);
+    fetchCategories().then(() => {
+        fetchServices().then((services) => {
+            // Add category filter listener after services are fetched
+            categorySelect.addEventListener('change', () => filterServices(services));
+        });
+    });
 });

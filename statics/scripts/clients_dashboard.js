@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const categorySelect = document.getElementsByClassName('categorySelect');
+    const categorySelect = document.getElementById('categorySelect');
     const serviceList = document.getElementById('service-list');
 
     async function init() {
         await fetchCategories();
-        await fetchServices();
+        await fetchServices(); // Load all services by default
     }
 
     init();
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function fetchCategories() {
         try {
-            const response = await fetch(`${config.API_URL}/categories/`, {
+            const response = await fetch(`${config.API_URL}/categorys/`, {
                 method: "GET",
                 headers: new Headers({
                     "ngrok-skip-browser-warning": "69420",
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             categories = await response.json();
-            console.log('Categories fetched:', categories); // Log categories
+            console.log('Categories fetched:', categories);
             populateCategorySelect(categories);
         } catch (error) {
             console.error('Error fetching categories:', error);
@@ -40,20 +40,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         categories.forEach(category => {
             const option = document.createElement('option');
-            option.value = category.id;
+            option.value = category.id.toString(); // Ensure this is a string for comparison
             option.textContent = category.name;
             categorySelect.appendChild(option);
         });
     }
 
-    async function fetchServices(categoryId = '') {
+    async function fetchServices(selectedCategoryId = 'all') {
         try {
-            let url = `${config.API_URL}/services/`;
-            if (categoryId) {
-                url += `?categoryId=${categoryId}`;
-            }
-
-            const response = await fetch(url, {
+            const response = await fetch(`${config.API_URL}/services/`, {
                 method: "GET",
                 headers: new Headers({
                     "ngrok-skip-browser-warning": "69420",
@@ -64,16 +59,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const contentType = response.headers.get('content-type');
-            if (!contentType || !contentType.includes('application/json')) {
-                const text = await response.text();
-                console.log('Response Text:', text); // Log non-JSON response
-                throw new TypeError('Expected JSON response');
+            const services = await response.json();
+            console.log('All Services fetched:', services);
+
+            // Convert categoryID to string for comparison, and filter services
+            const filteredServices = selectedCategoryId === 'all'
+                ? services
+                : services.filter(service => 
+                      service.category && service.category.toString() === selectedCategoryId
+                  );
+
+            // Log for debugging
+            if (filteredServices.length === 0) {
+                console.log(`No services found for category ${selectedCategoryId}`);
+            } else {
+                console.log(`Filtered Services for category ${selectedCategoryId}:`, filteredServices);
             }
 
-            const services = await response.json();
-            console.log('Services fetched:', services); // Log services
-            renderServices(services);
+            renderServices(filteredServices);
         } catch (error) {
             console.error('Error fetching services:', error);
             serviceList.innerHTML = '<p class="error">Failed to load services. Please try again later.</p>';
@@ -85,10 +88,10 @@ document.addEventListener('DOMContentLoaded', function() {
         services.forEach(service => {
             const serviceElement = document.createElement('div');
             serviceElement.classList.add('service');
-            serviceElement.setAttribute('data-category', service.categoryID);
+            serviceElement.setAttribute('data-category', service.category || 'N/A');
             serviceElement.innerHTML = `
                 <a href="#" class="service-link">
-                    <img src="${service.image}" alt="${service.title}">
+                    <img src="${service.image || 'placeholder.jpg'}" alt="${service.name}">
                     <h3>${service.name}</h3>
                 </a>
                 <p>${service.description}</p>
@@ -107,12 +110,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     categorySelect.addEventListener('change', function() {
-        const selectedCategory = this.value;
-        if (selectedCategory === 'all') {
-            fetchServices();
-        } else {
-            fetchServices(selectedCategory);
-        }
+        const selectedCategoryId = this.value;
+        console.log(`Category changed: ${selectedCategoryId}`);
+        fetchServices(selectedCategoryId);
     });
 });
 
