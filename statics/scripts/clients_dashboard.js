@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h3>${service.name}</h3>
                 </a>
                 <p>${service.description}</p>
-                <p>Price: $${service.price}</p>
+                <p>Price: Ksh ${service.price}</p>
             `;
             serviceList.appendChild(serviceElement);
         });

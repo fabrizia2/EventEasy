@@ -38,8 +38,14 @@
           </div>
           <div class="mb-6">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
-            <input id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Enter your password">
+            <div class="relative">
+              <input id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Enter your password">
+              <button type="button" class="toggle-password absolute inset-y-0 right-3 flex items-center text-gray-500" onclick="togglePassword('password')">
+                👁️
+              </button>
+            </div>
           </div>
+          
           <div class="flex items-center justify-between">
             <button id="signin" class="bg-green-900 hover:bg-white hover:text-green-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
               Sign In
@@ -67,11 +73,18 @@
           </div>
           <div class="mb-6">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="signup-password">Password</label>
-            <input id="signup-password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Enter your password">
+            <div class="relative">
+              <input id="signup-password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Enter your password">
+            </div>
           </div>
           <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="re-password">Re Password</label>
-            <input id="re-password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Enter your password again">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="re-password">Re-Password</label>
+            <div class="relative">
+              <input id="re-password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" placeholder="Enter your password again">
+              <button type="button" class="toggle-password absolute inset-y-0 right-3 flex items-center text-gray-500" onclick="togglePassword('password')">
+                👁️
+              </button>
+            </div>
           </div>
           <!--div class="mb-6">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="role">Role</label>
@@ -92,6 +105,15 @@
   </div>
 
   <script>
+    function togglePassword(id) {
+      const passwordInput = document.getElementById(id);
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+      } else {
+        passwordInput.type = "password";
+      }
+    }
+
     // Event listeners for toggling forms
     document.getElementById('loginLink').addEventListener('click', () => toggleForm('login'));
     document.getElementById('signupLink').addEventListener('click', () => toggleForm('signup'));
