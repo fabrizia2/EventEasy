@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const categorySelect = document.getElementById('categorySelect');
+    const categorySelect = document.getElementById('category-select'); // Ensure correct ID
+    const categorySelect1 = document.getElementById('category-select2');
     const serviceList = document.getElementById('service-list');
 
     async function init() {
@@ -7,16 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
         await fetchServices(); // Load all services by default
     }
 
-    init();
-
-    let categories = [];
-
+    
+    // Function to fetch categories from the backend
     async function fetchCategories() {
         try {
-            const response = await fetch(`${config.API_URL}/categorys/`, {
+            const response = await fetch(`${config.API_URL}/categories/`, { // Replace with your backend URL
                 method: "GET",
                 headers: new Headers({
-                    "ngrok-skip-browser-warning": "69420",
+                    'Content-Type': 'application/json',
                 }),
             });
 
@@ -24,27 +23,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            categories = await response.json();
-            console.log('Categories fetched:', categories);
-            populateCategorySelect(categories);
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                throw new TypeError('Expected JSON response');
+            }
+
+            const categories = await response.json();
+            renderCategories(categories);
         } catch (error) {
             console.error('Error fetching categories:', error);
+            categorySelect.innerHTML = '<option value="all">All Services</option>'; // Default option if fetching fails
+            categorySelect1.innerHTML = '<option value="all">All Services</option>'; // Default option if fetching fails
         }
     }
 
-    function populateCategorySelect(categories) {
-        const allOption = document.createElement('option');
-        allOption.value = 'all';
-        allOption.textContent = 'All Categories';
-        categorySelect.appendChild(allOption);
-
+    // Function to render categories in the select dropdown
+    function renderCategories(categories) {
+        categorySelect.innerHTML = '<option value="all">All Services</option>'; // Default option
+        categorySelect1.innerHTML = '<option value="all">All Services</option>'; // Default option
         categories.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category.id.toString(); // Ensure this is a string for comparison
-            option.textContent = category.name;
-            categorySelect.appendChild(option);
+            // Create option element for the first select
+            const optionElement1 = document.createElement('option');
+            optionElement1.value = category.id; // Assuming 'id' is the unique identifier for each category
+            optionElement1.textContent = category.name; // Assuming 'name' is the name of the category
+            categorySelect.appendChild(optionElement1);
+
+            // Create option element for the second select
+            const optionElement2 = document.createElement('option');
+            optionElement2.value = category.id; // Assuming 'id' is the unique identifier for each category
+            optionElement2.textContent = category.name; // Assuming 'name' is the name of the category
+            categorySelect1.appendChild(optionElement2);
         });
     }
+
+    // Call the fetchCategories function to populate the dropdowns
+    fetchCategories();
+    
 
     async function fetchServices(selectedCategoryId = 'all') {
         try {
@@ -110,6 +124,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     categorySelect.addEventListener('change', function() {
+        const selectedCategoryId = this.value;
+        console.log(`Category changed: ${selectedCategoryId}`);
+        fetchServices(selectedCategoryId);
+    });
+
+    categorySelect1.addEventListener('change', function() {
         const selectedCategoryId = this.value;
         console.log(`Category changed: ${selectedCategoryId}`);
         fetchServices(selectedCategoryId);
@@ -193,228 +213,4 @@ $(document).ready(function() {
     });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    const categorySelect = document.getElementById('category-select');
-    const services = document.querySelectorAll('.service');
-
-    categorySelect.addEventListener('change', function() {
-        const selectedCategory = this.value;
-        services.forEach(service => {
-            if (selectedCategory === 'all' || service.getAttribute('data-category') === selectedCategory) {
-                service.style.display = 'block';
-            } else {
-                service.style.display = 'none';
-            }
-        });
-    });
-});
-
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    const serviceModal = document.getElementById('service-details-modal');
-    const bookingModal = document.getElementById('booking-modal');
-    const bookServiceButton = document.getElementById('book-service-button');
-    const closeButtons = document.querySelectorAll('.close');
-
-    // Open booking modal when "Book Service" button is clicked
-    bookServiceButton.addEventListener('click', function() {
-        serviceModal.style.display = 'none'; // Hide service details modal
-        bookingModal.style.display = 'block'; // Show booking modal
-    });
-
-    // Close modals when close button is clicked
-    closeButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            serviceModal.style.display = 'none';
-            bookingModal.style.display = 'none';
-        });
-    });
-
-    // Close modals when clicking outside the modal content
-    window.addEventListener('click', function(event) {
-        if (event.target == serviceModal) {
-            serviceModal.style.display = 'none';
-        }
-        if (event.target == bookingModal) {
-            bookingModal.style.display = 'none';
-        }
-    });
-});
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    updateCartTotal();
-
-    // Add event listener to remove buttons
-    document.querySelectorAll('.remove-item').forEach(button => {
-        button.addEventListener('click', function() {
-            this.parentElement.remove();
-            updateCartTotal();
-        });
-    });
-});
-
-function updateCartTotal() {
-    const cartItems = document.querySelectorAll('#cart-items .cart-item');
-    let total = 0;
-    
-    cartItems.forEach(item => {
-        const priceText = item.querySelector('span').innerText.replace('$', '');
-        const price = parseFloat(priceText);
-        if (!isNaN(price)) {
-            total += price;
-        }
-    });
-
-    document.querySelector('#cart-total span').innerText = total.toFixed(2);
-}
-
-
-// JavaScript to handle the gig application modal
-$(document).ready(function () {
-    // Get the modal
-    var modal = document.getElementById("gig-application-modal");
-
-    // Get the button that opens the modal
-    var applyButtons = document.querySelectorAll(".apply-button");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks on the button, open the modal
-    applyButtons.forEach(button => {
-        button.onclick = function () {
-            var gigCard = this.closest('.gig-card');
-            var gigTitle = gigCard.querySelector('h3').innerText;
-            var gigDescription = gigCard.querySelector('p').innerText;
-            
-            document.getElementById('gig-title').innerText = gigTitle;
-            document.getElementById('gig-description').innerText = gigDescription;
-            
-            modal.style.display = "block";
-        }
-    });
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-
-    // Handle the form submission
-    $("#gig-application-form").submit(function (event) {
-        event.preventDefault();
-        // Handle the form submission logic here
-        alert("Your application has been submitted!");
-        modal.style.display = "none";
-    });
-});
-
-hamburger?.classList.toggle('open');
-
-$(document).ready(function () {
-    var hamburger = document.getElementById("hamburger");
-    var navLinks = document.getElementById("nav-links");
-
-    hamburger.onclick = function () {
-        navLinks.classList.toggle("active"); // Toggle active class on nav-links
-    };
-});
-
-// Function to fetch categories from the backend
-async function fetchCategories() {
-    const categoriesUrl = `${config.API_URL}/categories/`;
-    try {
-        const response = await fetch(categoriesUrl, {
-            method: 'GET',
-            headers: new Headers({
-                'ngrok-skip-browser-warning': '69420',
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const categoriesData = await response.json();
-        return categoriesData;
-    } catch (error) {
-        console.error('Failed to fetch categories:', error);
-        return [];
-    }
-}
-
-// Function to populate category selects
-async function populateCategorySelects() {
-    const categories = await fetchCategories();
-    const categorySelects = document.querySelectorAll('.categorySelect');
-
-    categorySelects.forEach(categorySelect => {
-        // Clear existing options
-        categorySelect.innerHTML = '';
-
-        // Add new options fetched from the backend
-        categories.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category.id;
-            option.text = category.name;
-            categorySelect.appendChild(option);
-        });
-
-        // Add event listener to each category select
-        categorySelect.addEventListener('change', (event) => {
-            console.log('Category changed:', event.target.value);
-            // Add your filter functionality here
-        });
-    });
-}
-
-// Function to populate category selects
-async function populateCategorySelects() {
-    const categories = await fetchCategories();
-    const categorySelects = document.querySelectorAll('.categorySelect');
-
-    categorySelects.forEach(categorySelect => {
-        // Clear existing options
-        categorySelect.innerHTML = '';
-
-        // Add new options fetched from the backend
-        categories.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category.id;
-            option.text = category.name;
-            categorySelect.appendChild(option);
-        });
-
-        // Add event listener to each category select
-        categorySelect.addEventListener('change', (event) => {
-            console.log('Category changed:', event.target.value);
-            filterServicesByCategory(event.target.value);
-        });
-    });
-}
-
-// Function to filter services based on selected category
-function filterServicesByCategory(categoryId) {
-    const servicesList = document.getElementById('services-list');
-    const servicesItems = servicesList.querySelectorAll('.services-item');
-
-    servicesItems.forEach(serviceItem => {
-        if (categoryId === "" || serviceItem.dataset.categoryId === categoryId) {
-            serviceItem.style.display = 'block';
-        } else {
-            serviceItem.style.display = 'none';
-        }
-    });
-}
-
-// Initialize fetching and populating categories when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    populateCategorySelects();
-});
 

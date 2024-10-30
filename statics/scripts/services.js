@@ -40,74 +40,75 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Function to fetch services from the backend
-    async function fetchServices() {
+    async function fetchServices(selectedCategoryId = 'all') {
         try {
-            const response = await fetch(`${config.API_URL}/services/`, { // Replace with your backend URL
-                method: "get",
+            const response = await fetch(`${config.API_URL}/services/`, {
+                method: "GET",
                 headers: new Headers({
-                    'Content-Type': 'application/json',
+                    "ngrok-skip-browser-warning": "69420",
                 }),
-              });
-
-            // Log the headers for debugging
-            console.log('Response Headers:', response.headers);
+            });
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const contentType = response.headers.get('content-type');
-            if (!contentType || !contentType.includes('application/json')) {
-                // Log the raw response text for debugging
-                const text = await response.text();
-                console.log('Response Text:', text);
+            const services = await response.json();
+            console.log('All Services fetched:', services);
 
-                throw new TypeError('Expected JSON response');
+            // Convert categoryID to string for comparison, and filter services
+            const filteredServices = selectedCategoryId === 'all'
+                ? services
+                : services.filter(service => 
+                      service.category && service.category.toString() === selectedCategoryId
+                  );
+
+            // Log for debugging
+            if (filteredServices.length === 0) {
+                console.log(`No services found for category ${selectedCategoryId}`);
+            } else {
+                console.log(`Filtered Services for category ${selectedCategoryId}:`, filteredServices);
             }
 
-            const services = await response.json();
-            renderServices(services);
+            renderServices(filteredServices);
         } catch (error) {
             console.error('Error fetching services:', error);
             serviceList.innerHTML = '<p class="error">Failed to load services. Please try again later.</p>';
         }
     }
 
-    // Function to render services on the page
     function renderServices(services) {
-        serviceList.innerHTML = ''; // Clear the existing services
-        if (services.length === 0) {
-            serviceList.innerHTML = '<p>No services available.</p>';
-            return;
-        }
+        serviceList.innerHTML = '';
         services.forEach(service => {
             const serviceElement = document.createElement('div');
             serviceElement.classList.add('service');
-            serviceElement.setAttribute('data-category', service.categoryID); // Ensure categoryID is consistent
+            serviceElement.setAttribute('data-category', service.category || 'N/A');
             serviceElement.innerHTML = `
-                <a href="service1.html?id=${service.id}">
-                    <img src="${service.image}" alt="${service.title}" />
+                <a href="#" class="service-link">
+                    <img src="${service.image || 'placeholder.jpg'}" alt="${service.name}">
                     <h3>${service.name}</h3>
                 </a>
                 <p>${service.description}</p>
+                <p>Price: Ksh ${service.price}</p>
             `;
             serviceList.appendChild(serviceElement);
         });
-    }
 
-    // Function to filter services based on the selected category
-    function filterServices(services) {
-        const selectedCategory = categorySelect.value;
-        const serviceElements = document.querySelectorAll('.service');
-        serviceElements.forEach(service => {
-            if (selectedCategory === 'all' || service.getAttribute('data-category') === selectedCategory) {
-                service.style.display = 'block';
-            } else {
-                service.style.display = 'none';
-            }
+        document.querySelectorAll('.service-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const serviceElement = this.closest('.service');
+                showModal(serviceElement);
+            });
         });
     }
+
+    categorySelect.addEventListener('change', function() {
+        const selectedCategoryId = this.value;
+        console.log(`Category changed: ${selectedCategoryId}`);
+        fetchServices(selectedCategoryId);
+    });
+
 
     // Fetch categories and services when the page loads
     fetchCategories().then(() => {
